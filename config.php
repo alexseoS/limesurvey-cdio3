@@ -34,14 +34,14 @@ $databasetype       =   'mysql';       // ADOdb database driver - valid values a
                                        // postgres: Standard postgres driver
 
 $databaselocation   =   'localhost';   // Network location of your Database - for odbc_mssql or mssqlnative use the mssql servername, not localhost or IP
-$databasename       =   'limesurvey';  // The name of the database that we will create
+$databasename       =   'limesurvey_cdio3';  // The name of the database that we will create
 $databaseuser       =   'root';        // The name of a user with rights to create db (or if db already exists, then rights within that db)
-$databasepass       =   '';            // Password of db user
+$databasepass       =   '1234';            // Password of db user
 $dbprefix           =   'lime_';       // A global prefix that can be added to all LimeSurvey tables. Use this if you are sharing
                                        // a database with other applications. Suggested prefix is 'lime_'
 
 // File Locations
-$rooturl            =   "http://{$_SERVER['HTTP_HOST']}/limesurvey"; // The root web url for your limesurvey installation (without a trailing slash).
+$rooturl            =   "http://{$_SERVER['HTTP_HOST']}"; // The root web url for your limesurvey installation (without a trailing slash).
 // The double quotes (") are important.
 
 $rootdir            =   dirname(__FILE__);  // This is the physical disk location for your limesurvey installation. Normally you don't have to touch this
@@ -51,7 +51,7 @@ $rootdir            =   dirname(__FILE__);  // This is the physical disk locatio
 
 // Installation Setup
 $defaultuser        =   'admin';           // This is the username when LimeSurvey is installed and the administration user is created on installation
-$defaultpass        =   'password';        // This is the password for the administration user when LimeSurvey is installed
+$defaultpass        =   '1234';        // This is the password for the administration user when LimeSurvey is installed
 
 // Debug Settings
 $debug              =   0;                 // Set this to 1 if you are looking for errors. If you still get no errors after enabling this
