@@ -2,6 +2,7 @@
 
 include_once('login_check.php');
 require_once('lo_html.php');
+require_once("/../classes/PHPEXcel/PHPExcel.php");
 
 //showlomenu is invoked from lo_html.php
 $lo_output = showlomenu();
@@ -108,9 +109,30 @@ else if ($action == 'addlo') {
 		
 	}
 	else {
-		$lo_output .= file_get_contents('cdio3/add_lo_html.html');
+		//$lo_output .= file_get_contents('cdio3/add_lo_html.html');
+		$lo_output .= genAddLOForm();
 	}
 	
+}
+else if ($action == 'importlo') {
+	if ($_FILES["excel_file"]["error"] > 0) {
+		$lo_output .= "Return code: ".$_FILES["excel_file"]["error"];
+	}
+	
+	$fname = $_FILES["excel_file"]["name"];
+	if (file_exists("../upload/".$fname)){
+		$lo_output .= "File exists!";
+	}
+	else {
+		move_uploaded_file($_FILES["excel_file"]["tmp_name"], "../upload/".$fname);
+		processExcelFile("../upload/".$fname, $fname);
+		
+		unlink("../upload/".$fname);
+		
+		$lo_output .= "<script type=\"text/javascript\">\n<!--\n alert(\"".$clang->gT("Import finished!","js")."\")
+						location.href='admin.php?action=listlo';\n //-->\n</script>\n";
+	//	$lo_output .= "";
+	}
 }
 elseif ($action == 'gensurvey') {
 	if (isset($_GET['saved']) && ($_GET['saved'] == true)) {
@@ -148,7 +170,7 @@ function display_lo_tree($tree, $parent_index = " ") {
 			$item = $tree[$index];
 			
 			$item_index = "---".$parent_index.$item['order'].". ";
-			$url = "popup.php?action=edit_lo_item&itemid=".$item['item_id'];
+			$url = "popup.php?action=edit_lo_item&itemid=".$item['id'];
 			
 			$html.= $item_index."<a href=\"javascript: void(0)\" 
    								onclick=\"window.open('$url', 
@@ -166,4 +188,71 @@ function display_lo_tree($tree, $parent_index = " ") {
 	return $html;
 }
 
+function processExcelFile($filename, $lo_name) {
+	$objPHPExcel = PHPExcel_IOFactory::load($filename);
+	
+	$row = 2;
+	$cur_level;
+	
+	InsertNewLO($lo_name, "", -1, 1);
+	
+	$root = GetLOItemByContent($lo_name);
+	$parent_item['level1'] = array ('level' => '-1', 'content' => $root["name"]);
+	
+	$max_row = $objPHPExcel->getActiveSheet()->getHighestRow();
+	
+	while($row <= $max_row) {
+		$cur_level = 0;
+		$order = 1;
+		$index[0] = $objPHPExcel->getActiveSheet()->getCell("A".$row)->getValue();
+		
+		//print_r($index[0]);
+		if ($index[0] != "0") {
+			$cur_level = 1;
+			$order = $index[0];
+		}
+		
+		$index[1] = $objPHPExcel->getActiveSheet()->getCell("B".$row)->getValue();
+		if ($index[1] != "0") {
+			$cur_level = 2;
+			$order = $index[1];
+		}
+		
+		$index[2] = $objPHPExcel->getActiveSheet()->getCell("C".$row)->getValue();
+		if ($index[2] != "0") {
+			$cur_level = 3;
+			$order = $index[2];
+		}
+		
+		$index[3] = $objPHPExcel->getActiveSheet()->getCell("D".$row)->getValue();
+		if ($index[3] != "0") {
+			$cur_level = 4;
+			$order = $index[3];
+		}
+		
+		$content = $objPHPExcel->getActiveSheet()->getCell("E".$row)->getValue();
+		
+		//print_r($cur_level);
+		
+		//print_r($content);		
+		if ($cur_level == 1) {
+			//if this is the first level, parent is root;	
+			InsertNewLO($content, " ", $root['id'], $order);
+		}
+		else {
+			//else, check the parent_item
+			$pitem = GetLOItemByContent($parent_item['level'.$cur_level]['content']);
+			//print_r($pitem['name']);
+			InsertNewLO($content, " ", $pitem['id'], $order);
+		}
+		
+		//if this is at same level of previous item
+		$parent_item['level'.($cur_level+1)] = array(
+					'level' => $cur_level+1,
+					'content' => $content);
+
+		$row ++;
+		//break;
+	}
+}
 ?>

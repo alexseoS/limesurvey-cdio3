@@ -28,7 +28,7 @@ function show_rs_menu() {
 
 function genNewRawSurveyForm ($lo) {
 	$html = "<table><form method=POST action='admin.php?action=gen_raw_survey&saved=true'>";
-	$html .= "<input type=hidden name=loid value='".$lo['item_id']."'";
+	$html .= "<input type=hidden name=loid value='".$lo['id']."'";
 	$html .= "
 		<tr>
 			<td valign='top'>
@@ -58,6 +58,8 @@ function genNewRawSurveyForm ($lo) {
 }
 
 function genRawQuestionOnInitialize($lo_tree, $questiontype, &$lo_id_list, $index="") {
+
+//TODO: convert qtypes
 	$count = count($lo_tree);
 	$html = "";
 	
@@ -71,7 +73,7 @@ function genRawQuestionOnInitialize($lo_tree, $questiontype, &$lo_id_list, $inde
 			else {
 				$item_index = $index.".".$item['ord'];
 			}
-			$lo_item_id = $item['item_id'];
+			$lo_item_id = $item['id'];
 			array_push($lo_id_list, $lo_item_id);
 			$lo_item = $item['name'];
 			

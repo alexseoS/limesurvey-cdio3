@@ -103,7 +103,10 @@ elseif ($action == 'new_survey_question') {
 			else {
 				$lo_tree = get_lo_subtree($loid);
 				//print_r($lo_tree);
-				$qt = GetAllQuestionType();
+				//$qt = GetAllQuestionType();
+				
+				$qt = getqtypelist();
+				
 				$lo_id_list = array();
 				$html = genRawQuestionOnInitialize($lo_tree, $qt, $lo_id_list);
 				
@@ -115,7 +118,6 @@ elseif ($action == 'new_survey_question') {
 				$lo_id_list = implode("~", $lo_id_list);
 				$rs_output .= "<input name='loid_list' type='hidden' value='$lo_id_list' />";
 			}
-			
 		}
 	}
 	

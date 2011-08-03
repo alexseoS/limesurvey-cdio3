@@ -1555,15 +1555,19 @@ function Updatedefaultvalues($qid,$sqid,$scale_id,$specialtype,$language,$defaul
 // CDIO3: Learning Outcomes Database manipulation functions
 
 //Insert new LO, incase insert root lo, parent id is set default to -1
-function InsertNewLO($name, $description, $parent_id="-1", $order="1")
+function InsertNewLO($name, $description, $parent_id=-1, $order=1)
 {
         global $connect;
         $insertarray=array( 'name'=>$name,
                             'description'=>$description, 
-                                                        'parent_id'=>$parent_id,
-                                                        'ord' => $order);
-    $dbtablename=db_table_name_nq('cdio3_learningoutcomes');
-    $isquery = $connect->GetInsertSQL($dbtablename, $insertarray);
+							'`order`'=>$order,
+							'parent_id'=>$parent_id);
+							
+		$dbtablename=db_table_name_nq('cdio3_learningoutcomes');
+		
+		$isquery = $connect->GetInsertSQL($dbtablename, $insertarray);
+		
+		//$isquery = "insert into $dbtablename('name', 'description', 'order', 'parent_id') values ($name, $description, $order, $parent_id)";
         
         $connect->execute($isquery);
 }
@@ -1571,7 +1575,7 @@ function InsertNewLO($name, $description, $parent_id="-1", $order="1")
 
 function GetLO ($itemid) {
         global $connect;
-        $query = "select * from ".db_table_name('cdio3_learningoutcomes'). "where item_id='".db_quote($itemid)."' and status=1";
+        $query = "select * from ".db_table_name('cdio3_learningoutcomes'). "where id='".db_quote($itemid)."' and status=1";
         $result = db_execute_assoc($query) or safe_die($connect->ErrorMsg());
 
         if ($result->RecordCount() > 0) {
@@ -1587,7 +1591,7 @@ function UpdateLO($item) {
         global $connect;
         $query = "update ".db_table_name_nq("cdio3_learningoutcomes")." set name='".db_quote($item['name'])."'";
         $query .=", description='".db_quote($item['description'])."' ";
-        $query .="where item_id='".db_quote($item['item_id'])."'";
+        $query .="where id='".db_quote($item['id'])."'";
 
         return $connect->Execute($query);
 }
@@ -1701,21 +1705,7 @@ function InsertRawSurveyAnswer($qid, $code, $answer, $assessment_value, $scale_i
 }
 
 function GetAllQuestionType() {
-        global $connect;
-        $query = "select * from ".db_table_name("rs_questiontype")." where status =1";
-        
-        $result = db_execute_assoc($query) or safe_die($connect->ErrorMsg());
-        
-        $rt = null;
-        if ($result->RecordCount() > 0) {
-                $i = 0;
-                while($row = $result->FetchRow()) {
-                        $rt[$i] = $row;
-                        $i ++;
-                }
-        }
-        
-        return $rt;
+        return null;
 }
 
 function GetQuestionIDByLOID($loid) {
@@ -1725,7 +1715,7 @@ function GetQuestionIDByLOID($loid) {
 
 function GetLOItemByContent($content) {
         global $connect;
-        $query = "SELECT * FROM ".db_table_name("cdio3_learningoutcomes")." WHERE status = 1 AND name='".db_quote($content)."' ORDER BY item_id DESC LIMIT 1";
+        $query = "SELECT * FROM ".db_table_name("cdio3_learningoutcomes")." WHERE status = 1 AND name='".db_quote($content)."' ORDER BY id DESC LIMIT 1";
         
         $result = db_execute_assoc($query) or safe_die($connect->ErrorMsg());
         $rt = null;

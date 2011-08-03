@@ -8,7 +8,7 @@ function getlearningoutcomeslist() {
 	$html = "<option value=0>Select an learning outcomes</option>";
 	if ($result->RecordCount() > 0) {
 		while ($row = $result->FetchRow()) {
-			$html .= "<option value=".$row['item_id'].">--- ".$row['name']."</option>";
+			$html .= "<option value=".$row['id'].">--- ".$row['name']."</option>";
 		}
 	}
 	
@@ -48,4 +48,39 @@ function showlomenu()
     return $lomenu;
 }
 
+function genAddLOForm() {
+	global $scriptname;
+	$html = "
+			<div class=\"tab-pane\" id=\"tab-pane-newgroup\">
+		    <div class=\"tab-page\"> <h2 class=\"tab\">Input new LO
+		    </h2>
+		    <form action='$scriptname?action=addlo&saved=true' method=\"POST\">
+		    <li>
+		    	<label>Name</label><br />
+			    <input type='text' size='80' maxlength='100' name='txtname'/>
+		        <font color='red' face='verdana' size='1'>Required</font>
+		    </li>
+		    
+		    <br />
+			<li><label>Description</label><br />
+				<textarea cols='80' rows='8' name='desc'></textarea>
+			</li><br />
+		    
+		    <input type=\"submit\" value=\"Add\" />
+		    </form>
+		    </div>
+		    
+		    <div class=\"tab-page\"> 
+		    	<h2 class=\"tab\">Import LO</h2>
+		    	<form action='$scriptname?action=importlo' method=\"POST\" enctype=\"multipart/form-data\">
+		        	<label> Select an excel file:</label><br /><br />
+		       		<input type=\"file\" name=\"excel_file\" id=\"excel_file\"/><br /><br />
+		        	<input type=\"Submit\" value=\"Upload\"/>
+		        </form>
+		    </div>
+		</div>
+	";
+	
+	return $html;
+}
 ?>
