@@ -1,0 +1,77 @@
+<div class='menubar'> 
+<div class='menubar-title'> 
+<strong>Survey</strong> <span class='basic'>demo (ID:97315)</span></div> 
+<div class='menubar-main'> 
+<div class='menubar-left' id='basicsurveybar'> 
+<img src='http://localhost/limesurvey/images/inactive.png' alt='This survey is not currently active' /> 
+<img src='http://localhost/limesurvey/images/activate_disabled.png' alt='Survey cannot be activated. Either you have no permission or there are no questions.' /> 
+<img src='http://localhost/limesurvey/images/seperator.gif' alt=''  /> 
+<a href="#" accesskey='d' onclick="window.open('http://localhost/limesurvey/index.php?sid=97315&amp;newtest=Y&amp;lang=en', '_blank')" title="" ><img src='http://localhost/limesurvey/images/do.png' alt='Test this survey' /></a> 
+<img src='http://localhost/limesurvey/images/seperator.gif' alt=''  /> 
+<a href="#" onclick="window.open('admin.php?action=surveysecurity&amp;sid=97315', '_top')" title=''><img src='http://localhost/limesurvey/images/survey_security.png' name='SurveySecurity' alt='Survey security settings' /></a> 
+<a href="#" onclick="alert('This survey is not active, data entry is not allowed')" title=""><img src='http://localhost/limesurvey/images/dataentry_disabled.png'  alt='Dataentry screen for survey' name='DoDataentry' /></a> 
+<a href="#" onclick="window.open('admin.php?action=showprintablesurvey&amp;sid=97315', '_blank')" title="" ><img src='http://localhost/limesurvey/images/print.png' name='ShowPrintableSurvey' alt='Printable version of survey' /></a><img src='http://localhost/limesurvey/images/seperator.gif' alt='' /> 
+<a href="#" onclick="window.open('admin.php?action=editsurvey&amp;sid=97315', '_top')" title="" ><img src='http://localhost/limesurvey/images/edit.png' name='EditSurveySettings' alt='Edit survey settings' /></a> 
+<a href="#" onclick="sendPost('admin.php','dkxnv77nhw',new Array('action','sid'),new Array('deletesurvey','97315'));" title="" ><img src='http://localhost/limesurvey/images/delete.png' name='DeleteWholeSurvey' alt='Delete current survey' /></a> 
+<img src='http://localhost/limesurvey/images/seperator.gif' alt=''  /> 
+<a href="#" onclick="window.open('admin.php?action=tokens&amp;sid=97315', '_top')" title="" ><img src='http://localhost/limesurvey/images/tokens.png' name='TokensControl' alt='Token management' /></a> 
+</div> 
+<div class='menubar-left'> 
+<img id='surveyhandleright' class='btnsurveybar' alt="Standard survey options"src='http://localhost/limesurvey/images/handle-right.png' /> 
+<img id='surveyhandleleft' class='btnsurveybar' alt="Advanced survey options"src='http://localhost/limesurvey/images/handle-left.png' /> 
+</div><div class='menubar-left' id='advancedsurveybar'> 
+<img src='http://localhost/limesurvey/images/inactive.png' alt='This survey is not currently active' /> 
+<img src='http://localhost/limesurvey/images/activate_disabled.png' alt='Survey cannot be activated. Either you have no permission or there are no questions.' /> 
+<img src='http://localhost/limesurvey/images/seperator.gif' alt=''  /> 
+<a href="#" accesskey='d' onclick="window.open('http://localhost/limesurvey/index.php?sid=97315&amp;newtest=Y&amp;lang=en', '_blank')" title="" ><img src='http://localhost/limesurvey/images/do.png' name='DoSurvey2' alt='Test this survey' /></a> 
+<img src='http://localhost/limesurvey/images/seperator.gif' alt=''  /> 
+<a href="#" onclick="window.open('admin.php?action=assessments&amp;sid=97315', '_top')" title="" ><img src='http://localhost/limesurvey/images/assessments.png' alt='Set assessment rules' name='SurveyAssessment' /></a> 
+<a href="#" onclick="window.open('admin.php?action=quotas&amp;sid=97315', '_top')" title="" ><img src='http://localhost/limesurvey/images/quota.png' alt='Set survey quotas' name='SurveyQuotas' /></a> 
+<a href="#" onclick="alert('Currently there are no conditions configured for this survey.');" title="" ><img src='http://localhost/limesurvey/images/resetsurveylogic_disabled.png' name='ResetSurveyLogic' alt='Reset survey logic' /></a> 
+</div><div class='menubar-right'> 
+<span class="boxcaption">Question groups:</span><select name='groupselect' onchange="window.open(this.options[this.selectedIndex].value,'_top')"> 
+<option selected='selected'>Please choose...</option> 
+<option value='admin.php?sid=97315&amp;gid=1'>Group 1</option> 
+</select> 
+<a href="#" onclick="window.open('admin.php?action=addgroup&amp;sid=97315', '_top')" title=""><img src='http://localhost/limesurvey/images/add.png' alt='Add new group to survey' name='AddNewGroup' /></a> 
+<img src='http://localhost/limesurvey/images/seperator.gif' alt='' /> 
+<img src='http://localhost/limesurvey/images/blank.gif' width='15' alt='' /><input type='image' src='http://localhost/limesurvey/images/minus.gif' title='Hide details of this survey' alt='Hide details of this survey' name='MinimiseSurveyWindow' onclick='document.getElementById("surveydetails").style.display="none";' /> 
+<input type='image' src='http://localhost/limesurvey/images/plus.gif' title='Show details of this survey' alt='Show details of this survey' name='MaximiseSurveyWindow' onclick='document.getElementById("surveydetails").style.display="";' /> 
+<input type='image' src='http://localhost/limesurvey/images/close.gif' title='Close this survey' alt='Close this survey' name='CloseSurveyWindow' onclick="window.open('admin.php', '_top')" /> 
+</div> 
+</div> 
+</div> 
+<table  id='surveydetails'><tr><td align='right' valign='top' width='15%'><strong>Title:</strong></td> 
+<td align='left' class='settingentryhighlight'><strong>demo (ID 97315)</strong></td></tr> 
+<tr><td align='right' valign='top'><strong>Survey URL (English):</strong></td> 
+<td align='left'> <a href='http://localhost/limesurvey/index.php?sid=97315&amp;lang=en' target='_blank'>http://localhost/limesurvey/index.php?sid=97315&amp;lang=en</a></td></tr> 
+<tr><td align='right' valign='top'><strong>Description:</strong></td> 
+<td align='left'> &nbsp;Des</td></tr> 
+<tr > 
+<td align='right' valign='top'><strong>Welcome:</strong></td> 
+<td align='left'> &nbsp;welcome</td></tr> 
+<tr ><td align='right' valign='top'><strong>Administrator:</strong></td> 
+<td align='left'> hieurl (your-email@example.net)</td></tr> 
+<tr><td align='right' valign='top'><strong>Start date/time:</strong></td> 
+<td align='left'>-</td></tr> 
+<tr><td align='right' valign='top'><strong>Expiry date/time:</strong></td> 
+<td align='left'>-</td></tr> 
+<tr ><td align='right' valign='top'><strong>Template:</strong></td> 
+<td align='left'> default</td></tr> 
+<tr><td align='right' valign='top'><strong>Base language:</strong></td> 
+<td align='left'>English</td></tr> 
+<tr><td align='right' valign='top'><strong>Additional languages:</strong></td> 
+<td align='left'>-</td> 
+</tr><tr><td align='right' valign='top'><strong>Exit link:</strong></td> 
+<td align='left'>-</td></tr> 
+<tr><td align='right' valign='top'><strong>Number of questions/groups:</strong></td><td>0/1</td></tr> 
+<tr><td align='right' valign='top'><strong>Survey currently active:</strong></td><td>No</td></tr> 
+<tr><td align='right' valign='top'><strong>Hints:</strong></td><td> 
+Survey cannot be activated yet.<br /> 
+<span class='statusentryhighlight'>[You need to add questions]</span><br />Answers to this survey are anonymized.<br /> 
+It is presented group by group.<br /> 
+Participants can save partially finished surveys<br /> 
+No email notification<br /> 
+Regenerate question codes: [<a href='#' onclick="if (confirm('Are you sure you want regenerate the question codes?')) {sendPost('admin.php','dkxnv77nhw',new Array('action','sid','style'),new Array('renumberquestions','97315','straight'));}" >Straight</a>]  [<a href='#' onclick="if (confirm('Are you sure you want regenerate the question codes?')) {sendPost('admin.php','dkxnv77nhw',new Array('action','sid','style'),new Array('renumberquestions','97315','bygroup'));}" >By group</a>]</td></tr> 
+</table> 
+</div> 

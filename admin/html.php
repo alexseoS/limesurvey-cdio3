@@ -366,6 +366,7 @@ $action!='vvimport' && $action!='vvexport' && $action!='exportresults')
         . "<img src='{$imageurl}/display_export.png' name='DisplayExport' alt='".$clang->gT("Display / Export")."' /></a><ul>\n";
 
         // Eport menu item
+        // CDIO3: comment the insde code block to disable the exporting feature from admin menu
         if (bHasSurveyPermission($surveyid,'surveycontent','export'))
         {
             $surveysummary .= "<li><a href='{$scriptname}?action=exportstructure&amp;sid={$surveyid}'>"
@@ -890,6 +891,7 @@ if (isset($surveyid) && $surveyid && $gid )   // Show the group toolbar
 
 
         // EXPORT QUESTION GROUP BUTTON
+        // CDIO3: change the if condition to false to disable the exporting feature in admin menu
 
         if(bHasSurveyPermission($surveyid,'surveycontent','export'))
         {
@@ -1588,6 +1590,7 @@ if($action == "exportstructure")
 {
     if(bHasSurveyPermission($surveyid,'surveycontent','export'))
     {
+    // CDIO3: comment this part to disable the export feature
         $exportstructure = "<form id='exportstructure' name='exportstructure' action='$scriptname' method='post'>\n"
         ."<div class='header ui-widget-header'>"
         .$clang->gT("Export Survey Structure")."\n</div><br />\n"
@@ -1600,7 +1603,7 @@ if($action == "exportstructure")
 	    ."<label for='queXML'>"
 	    .str_replace('queXML','<a href="http://quexml.sourceforge.net/" target="_blank">queXML</a>',$clang->gT("queXML Survey XML Format (*.xml)"))." "
 	    ."</label></li>\n";
-
+    // CDIO3: end commenting of this part
 	    // XXX
 	    //include("../config.php");
 
@@ -2081,6 +2084,7 @@ function showadminmenu()
     {
         if ($databasetype=='mysql' || $databasetype=='mysqli')
         {
+        // CDIO3: comment this part to disable the Export DB feature
             $adminmenu  .= "<a href=\"#\" onclick=\"window.open('{$scriptname}?action=dumpdb', '_top')\" title=\"".$clang->gTview("Backup Entire Database")."\">\n"
             ."<img src='{$imageurl}/backup.png' name='ExportDB' alt='". $clang->gT("Backup Entire Database")."' />"
             ."</a>\n";
@@ -2104,6 +2108,19 @@ function showadminmenu()
         $adminmenu .= "<a href='{$scriptname}?action=templates' title=\"".$clang->gTview("Template Editor")."\" >"
         ."<img src='{$imageurl}/templates.png' name='EditTemplates' title='' alt='". $clang->gT("Template Editor")."' /></a>\n";
     }
+
+// CDIO3: LO menu
+    $adminmenu .= "<img src='{$imageurl}/seperator.gif' alt=''  border='0' hspace='0' />\n"
+    ."<a href=\"#\" onclick=\"window.open('$scriptname?action=listlo', '_top')\" title=\"".$clang->gTview("Learning Outcomes Management")."\" >\n"
+    ."<img src='{$imageurl}/reorder_disabled.png' name='Learning Outcomes Management' alt='".$clang->gT("Learning Outcomes Management")."' />"
+    ."</a>\n"
+    ."<img src='{$imageurl}/seperator.gif' alt=''  border='0' hspace='0' />\n";
+    
+// CDIO3: list rawsurvey
+    $adminmenu .= "<a href=\"#\" onclick=\"window.open('$scriptname?action=listrs', '_top')\" title=\"".$clang->gTview("List Raw Surveys")."\" >\n"
+    ."<img src='{$imageurl}/reorder.png' name='List Raw Surveys' alt='".$clang->gT("List Raw Surveys")."' />"
+    ."</a>" ;
+
 
     // survey select box
     $adminmenu .= "</div><div class='menubar-right'><span class=\"boxcaption\">".$clang->gT("Surveys").":</span>"

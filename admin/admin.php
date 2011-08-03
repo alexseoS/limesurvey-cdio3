@@ -77,7 +77,9 @@ if ( $action == 'FakeGET')
 if(isset($_SESSION['loginID']))
 {
     //VARIOUS DATABASE OPTIONS/ACTIONS PERFORMED HERE
-    if (in_array($action, array('updateemailtemplates','delsurvey','delgroup','delquestion','insertsurvey','updatesubquestions','copynewquestion','insertquestiongroup','insertCSV','insertquestion','updatesurveysettings','updatesurveysettingsandeditlocalesettings','updatesurveylocalesettings','updategroup','deactivate','savepersonalsettings','updatequestion','updateansweroptions','renumberquestions','updatedefaultvalues')))
+    
+    // CDIO3: add action of learning outcomes to include database.php in those files
+    if (in_array($action, array('updateemailtemplates','delsurvey','delgroup','delquestion','insertsurvey','updatesubquestions','copynewquestion','insertquestiongroup','insertCSV','insertquestion','updatesurveysettings','updatesurveysettingsandeditlocalesettings','updatesurveylocalesettings','updategroup','deactivate','savepersonalsettings','updatequestion','updateansweroptions','renumberquestions','updatedefaultvalues','addlo','importlo','editlo','gen_raw_survey','listrs','new_survey_question')))
     {
         include('database.php');
     }
@@ -250,7 +252,6 @@ if(isset($_SESSION['loginID']))
     }
     elseif ($action == 'previewgroup')
     {
-	
         require_once('../index.php');
         exit;
     
@@ -259,6 +260,14 @@ if(isset($_SESSION['loginID']))
     {
         if(bHasSurveyPermission($surveyid,'surveycontent','read'))    {$_SESSION['FileManagerContext']="edit:group:$surveyid"; include('questiongrouphandling.php');}
         else { include('access_denied.php');}
+    }
+// CDIO3: learning outcomes module
+    elseif ($action == "managelo" || $action == "addlo" || $action == "importlo" || $action == "listlo" || $action == "editlo" || $action == "deletelo") {
+        include ('cdio3/lohandling.php');
+    }
+// CDIO3: raw survey module
+    elseif ($action == "gen_raw_survey" || $action == "listrs" || $action == "new_survey_question") {
+        include ('cdio3/rshandling.php');
     }
     elseif ($action == 'saved')
     {
@@ -437,7 +446,7 @@ if(isset($_SESSION['loginID']))
         !isset($importoldresponsesoutput) && !isset($exportroutput) && !isset($vvoutput) &&
         !isset($tokenoutput) && !isset($exportoutput) && !isset($templatesoutput) && !isset($translateoutput) && //<AdV>
         !isset($iteratesurveyoutput) && (substr($action,0,4)!= 'ajax') && ($action!='update') &&
-        (isset($surveyid) || $action == "" || preg_match('/^(personalsettings|statistics|copysurvey|importsurvey|editsurveysettings|editsurveylocalesettings|updatesurveysettings|updatesurveysettingsandeditlocalesettings|updatedefaultvalues|ordergroups|dataentry|newsurvey|globalsettings|editusergroups|editusergroup|exportspss|surveyrights|quotas|editusers|login|browse|vvimport|vvexport|setuserrights|modifyuser|setusertemplates|deluser|adduser|userrights|usertemplates|moduser|addusertogroup|deleteuserfromgroup|globalsettingssave|savepersonalsettings|addusergroup|editusergroupindb|usergroupindb|finaldeluser|delusergroup|mailusergroup|mailsendusergroup)$/',$action)))
+        (isset($surveyid) || $action == "" || preg_match('/^(personalsettings|statistics|copysurvey|importsurvey|editsurveysettings|editsurveylocalesettings|updatesurveysettings|updatesurveysettingsandeditlocalesettings|updatedefaultvalues|ordergroups|dataentry|newsurvey|globalsettings|editusergroups|editusergroup|exportspss|surveyrights|quotas|editusers|login|browse|vvimport|vvexport|setuserrights|modifyuser|setusertemplates|deluser|adduser|userrights|usertemplates|moduser|addusertogroup|deleteuserfromgroup|globalsettingssave|savepersonalsettings|addusergroup|editusergroupindb|usergroupindb|finaldeluser|delusergroup|mailusergroup|mailsendusergroup)$/',$action) || $action == "managelo" || $action == "addlo" || $action == "importlo" || $action == "listlo" || $action == "editlo" || $action == "deletelo" || $action == "gen_raw_survey" || $action == "listrs" || $action == "new_survey_question")) // CDIO3 add actions
     {
         if ($action=='editsurveysettings' || $action=='editsurveylocalesettings')
         {
@@ -567,6 +576,12 @@ if(isset($_SESSION['loginID']))
     if (isset($cssummary      )) {$adminoutput.= $cssummary;}
     if (isset($listcolumnoutput)) {$adminoutput.= $listcolumnoutput;}
     if (isset($ajaxoutput)) {$adminoutput.= $ajaxoutput;}
+
+// CDIO3: learning outcomes
+    if (isset($lo_output)) {$adminoutput.=$lo_output;}
+
+// CDIO3: raw survey
+    if (isset($rs_output)) {$adminoutput .= $rs_output;}
 
 
     if (isset($editgroup)) {$adminoutput.= $editgroup;}
