@@ -1604,15 +1604,15 @@ function get_lo_subtree($item_id=-1, $level=1) {
                 $counter = 0;
                 
                 while($row = $result->FetchRow()) {
-                                $r[$counter]['item_id'] = $row['item_id'];
+                                $r[$counter]['id'] = $row['id'];
                                 $r[$counter]['parent_id'] = $row['parent_id'];
                                 $r[$counter]['name'] = $row['name'];
                                 $r[$counter]['description'] = $row['description'];
-                                $r[$counter]['ord'] = $row['ord'];
+                                $r[$counter]['order'] = $row['order'];
                                 $r[$counter]['status'] = $row['status'];
                                 $r[$counter]['level'] = $level;
                                 
-                                $r[$counter]['sub'] = get_lo_subtree($row['item_id'], $level+1);
+                                $r[$counter]['sub'] = get_lo_subtree($row['id'], $level+1);
                                 
                                 $counter+=1;
                 }
@@ -1624,7 +1624,7 @@ function get_lo_subtree($item_id=-1, $level=1) {
 function getLOItemIndex($item_id) {
         global $connect;
         $rt = "";
-        $query = "select parent_id from ".db_table_name("cdio3_learningoutcomes")." where item_id='".db_quote($item_id)."' and status=1";
+        $query = "select parent_id from ".db_table_name("cdio3_learningoutcomes")." where id='".db_quote($item_id)."' and status=1";
         $result = db_execute_assoc($query) or safe_die($connect->ErrorMsg());
         
         if ($result->RecordCount() > 0) {
@@ -1658,7 +1658,7 @@ function GetRawSurveyList() {
         return $rt;
 }
 
-function InsertRawSurvey($loid, $name, $adminemail, $ownerid, $allow_save='Y', $allow_register='Y') {
+function InsertRawSurvey($loid, $name) {
         global $connect;
         $insertarray=array( 'loid'=>$loid,
                             'name'=>$name);
