@@ -2,7 +2,7 @@
 
 include_once('login_check.php');
 require_once('lo_html.php');
-require_once("/../classes/PHPEXcel/PHPExcel.php");
+require_once("classes/PHPEXcel/PHPExcel.php");
 
 //showlomenu is invoked from lo_html.php
 $lo_output = showlomenu();
