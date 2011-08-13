@@ -139,7 +139,7 @@ function display_lo_tree($tree, $parent_index = " ") {
         if (isset($tree[$index])) {
             $item = $tree[$index];
             
-            $item_index = "---".$parent_index.$item['order'].". ";
+            $item_index = "---".$parent_index.$item['ord'].". ";
             $url = "popup.php?action=edit_lo_item&itemid=".$item['id'];
             
             $html.= $item_index."<a href=\"javascript: void(0)\" 

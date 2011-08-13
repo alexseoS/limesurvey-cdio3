@@ -23,8 +23,8 @@ function InsertNewLO($name, $description, $parent_id=-1, $order=1)
 {
     global $connect;
     $insertarray=array( 'name'=>$name,
-                'description'=>$description, 
-                '`order`'=>$order,
+                'description'=>$description,
+                'ord'=>$order,
                 'parent_id'=>$parent_id);
                 
     $dbtablename=db_table_name_nq('cdio3_learningoutcomes');
@@ -62,7 +62,7 @@ function UpdateLO($item) {
 //$level: to set the value of level for each item
 //return value: an array of children item of the $item_id, each child node has its subtree
 function get_lo_subtree($item_id=-1, $level=1) {
-    $query = "select * from ". db_table_name("cdio3_learningoutcomes"). "where parent_id='".db_quote($item_id)."' and status=1 order by `order` ASC";
+    $query = "select * from ". db_table_name("cdio3_learningoutcomes"). "where parent_id='".db_quote($item_id)."' and status=1 order by ord ASC";
     $result = db_execute_assoc($query) or safe_die($connect->ErrorMsg());
     $r = "";
     if ($result->RecordCount() > 0) {
@@ -73,7 +73,7 @@ function get_lo_subtree($item_id=-1, $level=1) {
                 $r[$counter]['parent_id'] = $row['parent_id'];
                 $r[$counter]['name'] = $row['name'];
                 $r[$counter]['description'] = $row['description'];
-                $r[$counter]['order'] = $row['order'];
+                $r[$counter]['ord'] = $row['ord'];
                 $r[$counter]['status'] = $row['status'];
                 $r[$counter]['level'] = $level;
                 

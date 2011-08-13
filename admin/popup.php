@@ -12,12 +12,6 @@ require_once('htmleditor-functions.php');
 
 //@ini_set('session.gc_maxlifetime', $sessionlifetime);     Might cause problems in client??
 
-// Reset FileManagerContext
-$_SESSION['FileManagerContext']='';
-
-if (!isset($adminlang)) {$adminlang=returnglobal('adminlang');} // Admin language
-if (!isset($action)) {$action=returnglobal('action');}          //Desired action
-
 if($casEnabled==true)
 {
     include_once("login_check_cas.php");
