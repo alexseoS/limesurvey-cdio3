@@ -4,9 +4,9 @@ include_once('login_check.php');
 require_once("classes/PHPEXcel/PHPExcel.php");
 require_once('cdio3_common_functions.php');
 
-$lo_output = showlomenu();
+$lo_output = show_lo_menu();
 
-if ($action == 'listlo') {    
+if ($action == 'listlo') {
     $query = "select * from ".db_table_name('cdio3_learningoutcomes')."where parent_id=-1 AND status=1";
     
     $result = db_execute_assoc($query) or safe_die($connect->ErrorMsg());
@@ -14,7 +14,6 @@ if ($action == 'listlo') {
     if($result->RecordCount() > 0) {
         $listlo = "<br /><table class='listsurveys'><thead>
                   <tr>
-                    <th>".$clang->gT("LOID")."</th>
                 <th>".$clang->gT("Learning outcomes")."</th>
                 <th>".$clang->gT("Description")."</th>
                 </tr></thead>
@@ -24,10 +23,8 @@ if ($action == 'listlo') {
         <tbody>";
         while($rows = $result->FetchRow()) {
             $listlo .= "<tr>";
-            $listlo .= "<td>".$rows['id']."</td>";
-            $id = $rows['id'];
-            
-            $listlo .= "<td><a href=$scriptname?action=editlo&id=$id>".$rows['name']."</a></td>";
+
+            $listlo .= "<td><a href=$scriptname?action=editlo&id={$rows['id']}>".$rows['name']."</a></td>";
             $listlo .= "<td>".$rows['description']."</td>";
             $listlo .= "</tr><tbody>";
         }
@@ -43,10 +40,8 @@ else if ($action == 'editlo') {
         $item_id = $_GET['id'];
     
         $query = "select * from ".db_table_name("cdio3_learningoutcomes")." where id='".db_quote($item_id)."' and status=1";
-        
         $result = db_execute_assoc($query) or safe_die($connect->ErrorMsg());
         
-        $row;
         if ($result->RecordCount() > 0) {
             $row = $result->FetchRow();
             
@@ -245,22 +240,21 @@ function getlearningoutcomeslist() {
     return $html;
 }
 
-function showlomenu()
+function show_lo_menu()
 {
     global $imageurl, $scriptname;
-    $lomenu  = "<div class='menubar'>\n";
-    $lomenu  .="<div class='menubar-title'>\n"
-    . "<div class='menubar-title-left'>\n"
-    . "<strong>Lerning Outcomes Management</strong>";
-
+    $lomenu  ="<div class='menubar surveybar'>\n"
+    . "<div class='menubar-title ui-widget-header'>\n"
+    . "<strong>Lerning Outcomes Management</strong>"
+    . "</div>"
+    . "<div class='menubar-main'>";
     
-    $lomenu .= "<img src='{$imageurl}/blank.gif' alt='' width='11' />\n"
-    . "<img src='{$imageurl}/seperator.gif' alt='' />\n";
-
     // list lo
     $lomenu .= "<a href=\"#\" onclick=\"window.open('$scriptname?action=listlo', '_top')\" title=\"List Surveys\" >\n"
     ."<img src='{$imageurl}/surveylist.png' name='ListSurveys' alt='List Surveys' />"
     ."</a>" ;
+    $lomenu .= "<img src='{$imageurl}/blank.gif' alt='' width='11' />\n"
+    . "<img src='{$imageurl}/seperator.gif' alt='' />\n";
     
     //new lo
     $lomenu .= "<a href=\"#\" onclick=\"window.open('$scriptname?action=addlo', '_top')\" title=\"Add LO\" >\n"
@@ -273,7 +267,6 @@ function showlomenu()
     . "<select onchange=\"window.open('$scriptname?action=editlo&id='+this.options[this.selectedIndex].value,'_top')\">\n"
     . getlearningoutcomeslist()
     . "</select></div></div>\n";
-    
 
     return $lomenu;
 }
@@ -314,4 +307,4 @@ function genAddLOForm() {
     return $html;
 }
 
-?>
+$lo_output .= '<br/>';

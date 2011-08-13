@@ -129,23 +129,20 @@ elseif ($action == 'edit_rs') {
 
 function show_rs_menu() {
     global $imageurl, $scriptname;
-    $rsmenu  = "<div class='menubar'>\n";
-    $rsmenu  .="<div class='menubar-title'>\n"
-    . "<div class='menubar-title-left'>\n"
-    . "<strong>Raw Survey Management</strong>";
-
-    
-    $rsmenu .= "<img src='{$imageurl}/blank.gif' alt='' width='11' />\n"
-    . "<img src='{$imageurl}/seperator.gif' alt='' />\n";
+    $rsmenu .="<div class='menubar surveybar'>\n"
+    . "<div class='menubar-title ui-widget-header'>\n"
+    . "<strong>Raw Survey Management</strong>"
+    . "</div>"
+    . "<div class='menubar-main'>";
 
     // list raw surveys
     $rsmenu .= "<a href=\"#\" onclick=\"window.open('$scriptname?action=listrs', '_top')\" title=\"List Surveys\" >\n"
     ."<img src='{$imageurl}/surveylist.png' name='ListRawSurveys' alt='List Raw Surveys' />"
     ."</a>" ;
+    $rsmenu .= "<img src='{$imageurl}/blank.gif' alt='' width='11' />\n"
+    . "<img src='{$imageurl}/seperator.gif' alt='' />\n";
 
-    
     //select raw survey
-
     $rsmenu .= "<span class=\"boxcaption\">Raw Surveys:</span>"
     . "<select onchange=\"window.open('$scriptname?action=editlo&id='+this.options[this.selectedIndex].value,'_top')\">\n"
     . "</select></div></div>\n";
