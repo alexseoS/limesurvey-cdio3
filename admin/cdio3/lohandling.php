@@ -129,10 +129,10 @@ else if ($action == 'importlo') {
 }
 elseif ($action == 'gensurvey') {
     if (isset($_GET['saved']) && ($_GET['saved'] == true)) {
-        $lo_output .= file_get_contents('cdio3/new_survey.html');
+        $lo_output .= 'gensurvey not implement yet';
     }
     else {
-        $lo_output .= file_get_contents('cdio3/raw_survey.html');
+        $lo_output .= 'gensurvey not implement yet';
     }
 }
 

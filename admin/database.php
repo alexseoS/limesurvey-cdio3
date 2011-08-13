@@ -1498,13 +1498,8 @@ elseif ($action == "savepersonalsettings")
     $_SESSION['dateformat']= $_POST['dateformat'];
     $_SESSION['flashmessage'] = $clang->gT("Your personal settings were successfully saved.");
 }
-
-// CDIO3: add actions to include this database.php
-
-elseif (!($action == "listlo" || $action == "addlo" || $action == "importlo" || $action == "editlo" ||
-    $action == "deletelo" || $action == "edit_lo_item" || $action == "new_lo_item" || $action == "delete_lo_item" ||
-    $action == "gen_raw_survey" || $action == "new_survey_question" || $action == "listrs")
-) {
+else
+{
     include("access_denied.php");
 }
 
@@ -1539,3 +1534,5 @@ function Updatedefaultvalues($qid,$sqid,$scale_id,$specialtype,$language,$defaul
        }
    }
 }
+
+?>
