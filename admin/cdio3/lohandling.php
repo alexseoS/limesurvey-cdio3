@@ -36,6 +36,14 @@ if ($action == 'listlo') {
     }
 }
 else if ($action == 'editlo') {
+    if(isset($_POST['txtname']) || isset($_POST['txtdesc'])) {
+        $loUpdate['name'] = $_POST['txtname'];
+        $loUpdate['description'] = $_POST['txtdesc'];
+        $loUpdate['id'] = $_POST['txtid'];
+        if (!UpdateLO($loUpdate)) {
+            $lo_output = 'error occurred';
+        }
+    }
     if (isset($_GET['id'])) {
         $item_id = $_GET['id'];
     
@@ -48,13 +56,16 @@ else if ($action == 'editlo') {
             $lo_output .= "<div class='header'>Edit Learning Outcomes</div>
             <div class='tab-page'>
             <center>
-            <form action='$scriptname?action=editlo&status=saved' method='post'>
+            <form action='$scriptname?action=editlo&id={$item_id}' method='post'>
             <table>
-                <tr><td valign='top'><li><label>Name: </label> 
-                    <input type='text' value=\"$row[name]\" size='50'/></li>
-                        <li><label>Description:</label><br />
-                        <textarea cols='60'>$row[description]</textarea></li>
-                </td>
+                <tr>
+                    <td valign='top'>
+                     <li><label>Name: </label> 
+                     <input type='hidden' value='{$item_id}' name='txtid' />
+                     <input type='text' value=\"$row[name]\" size='50' name='txtname' /></li>
+                    <li><label>Description:</label><br />
+                    <textarea cols='60' name='txtdesc'>$row[description]</textarea></li>
+                    </td>
                 <tr>
                 <td valign='top'>         
                     ";

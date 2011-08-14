@@ -41,7 +41,7 @@ if(isset($_SESSION['loginID']))
             //if submit button is hitted
             if (isset($saved) && $saved=="true") {
                 $item['name'] = $_POST['txtItemName'];
-                $item['item_id'] = $itemid;
+                $item['id'] = $itemid;
                 $item['description'] = $_POST['txtDesc'];
                 if (UpdateLO($item))
                     $popupoutput .= "<script type=\"text/javascript\">\n<!--\n alert(\"".$clang->gT("Item has been updated!","js")."\")
@@ -147,7 +147,7 @@ function genLOItemSelectOption($tree, $parent_index=" ") {
         if (isset($tree[$i])) {
             $item = $tree[$i];
             $item_index = "---".$parent_index.$item['ord'].". ";
-            $html .= "<option value='".$item['item_id']."'>".$item_index.$item['name']."</option>";
+            $html .= "<option value='".$item['id']."'>".$item_index.$item['name']."</option>";
             if(isset ($item['sub'])) {
                 $html .= genLOItemSelectOption($item['sub'], $item_index);
             }
