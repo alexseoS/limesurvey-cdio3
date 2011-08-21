@@ -88,10 +88,13 @@ if(isset($_SESSION['loginID']))
     else if ($action == 'delete_lo_item') {
     	$id = rhashLOID(returnglobal('id'));
     	
-    	$item = GetLO($id);
-    	$item['status'] = 0;   	
+    	$children = getAllChildrenLO($id);
+    	array_push($children, $id);
+    	
+    	$item = implode(",", $children);
+    	
 
-    	if (!UpdateLO($item)) {
+    	if (!markDeleted($item)) {
     		$text = "Error deleting record";
     		safe_die($text);
     	}

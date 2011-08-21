@@ -205,6 +205,36 @@ function GetLOItemByContent($content) {
     return $rt;
 }
 
+function getAllChildrenLO($id) {
+	global $connect;
+	$query = "select * from ".db_table_name('cdio3_learningoutcomes'). "where parent_id='".db_quote($id)."' and status=1";
+	
+	$list = db_execute_assoc($query);
+	
+	$children = array();
+	while (($rt = $list->FetchRow()) != null) {
+		//$children = array ($rt['id']);
+		$grand = getAllChildrenLO($rt['id']);
+		foreach ($grand as $i) {
+			array_push($children, $i);
+		}
+		
+		array_push($children, $rt['id']);
+	}
+	
+	return $children;
+}
+
+function markDeleted($item) {
+	global $connect;
+	$query = "update ".db_table_name_nq("cdio3_learningoutcomes")." set status='".db_quote('0')."' ";
+	$query .="where id in (".db_quote($item).")";
+	
+	$connect->execute($query);
+	
+	return true;
+}
+
 function hashLOID($id) {
 	$id = 50+$id*10;
 	

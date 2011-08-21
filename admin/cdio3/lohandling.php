@@ -83,7 +83,12 @@ else if ($action == 'editlo') {
                     <input type='submit' value='Cancel' />
                     <input type='submit' value='Save'/>
             </form>
-                    <input type='button' value='Generate survey' onclick=\"location.href='admin.php?action=gen_raw_survey&loid=$item_id'\" />
+                    <input type='button' value='Generate survey' onclick=\"location.href='admin.php?action=gen_raw_survey&loid=$item_id'\" />";
+            
+            $hashID = hashLOID($item_id);
+            $lo_output.= " <input type='button' value='Delete'
+            						onclick=\" if (confirm('Sure?')) { window.open('popup.php?action=delete_lo_item&id=$hashID'); 
+            							location.href='admin.php?action=listlo';} else {return false;}\" />
                     </center>
                 </td>
                 </tr>
@@ -211,6 +216,7 @@ function processExcelFile($filename, $lo_name) {
         }
         
         $content = $objPHPExcel->getActiveSheet()->getCell("E".$row)->getValue();
+        $content = trim($content);
         
         //print_r($cur_level);
         
