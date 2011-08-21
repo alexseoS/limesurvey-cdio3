@@ -50,11 +50,30 @@ function GetLO ($itemid) {
 
 function UpdateLO($item) {
     global $connect;
+    
+    $update_array = array('name' => db_quote($item['name']),
+    						'description' => db_quote($item['description']),
+    						'status' => db_quote($item['status']));
+    
+    $sql = "SELECT * FROM ".db_table_name_nq("cdio3_learningoutcomes")." WHERE id=".db_quote($item['id']);
+    $rs = db_execute_assoc($sql);
+    
+    $usquery=$connect->GetUpdateSQL($rs, $update_array, false, get_magic_quotes_gpc());
+    // echo $usquery;die;
+    /*
     $query = "update ".db_table_name_nq("cdio3_learningoutcomes")." set name='".db_quote($item['name'])."'";
     $query .=", description='".db_quote($item['description'])."' ";
     $query .="where id='".db_quote($item['id'])."'";
-
+    
+    
     return $connect->Execute($query);
+    */
+    
+    if ($usquery) {
+    	return $connect->execute($usquery) or safe_die("Error updating<br />".$usquery."<br /><br /><strong>".$connect->ErrorMsg());  // Checked
+    }
+    
+    return false;
 }
 
 //get learning outcome subtree
@@ -184,6 +203,18 @@ function GetLOItemByContent($content) {
     }
     
     return $rt;
+}
+
+function hashLOID($id) {
+	$id = 50+$id*10;
+	
+	return $id;
+}
+
+function rhashLOID($phrase) {
+	$id = ($phrase - 50)/10;
+
+	return $id;
 }
 
 ?>

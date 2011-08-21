@@ -26,7 +26,7 @@ if ($action == "edit_lo_item"|| $action="new_lo_item") {
     include ('database.php');
 }
 
-$popupoutput = '';
+$popupoutput = '<meta http-equiv="content-type" content="text/html; charset=UTF-8">';
 
 if(isset($_SESSION['loginID']))
 {
@@ -43,6 +43,7 @@ if(isset($_SESSION['loginID']))
                 $item['name'] = $_POST['txtItemName'];
                 $item['id'] = $itemid;
                 $item['description'] = $_POST['txtDesc'];
+                $item['status'] = '1';
                 if (UpdateLO($item))
                     $popupoutput .= "<script type=\"text/javascript\">\n<!--\n alert(\"".$clang->gT("Item has been updated!","js")."\")
                         window.opener.location.reload(); window.close();\n //-->\n</script>\n";
@@ -84,6 +85,19 @@ if(isset($_SESSION['loginID']))
             
         }
     }
+    else if ($action == 'delete_lo_item') {
+    	$id = rhashLOID(returnglobal('id'));
+    	
+    	$item = GetLO($id);
+    	$item['status'] = 0;   	
+
+    	if (!UpdateLO($item)) {
+    		$text = "Error deleting record";
+    		safe_die($text);
+    	}
+    	
+    	$popupoutput .= "<script> window.opener.location.reload(); window.close();</script>";
+    }
     else {
         echo $action;
     }
@@ -91,9 +105,6 @@ if(isset($_SESSION['loginID']))
 else {
     include('access_denied.php');
 }
-
-//display the output
-echo $popupoutput;
 
 function genEditLoItemForm($itemid) {
     $item_not_found = "Item not found!";
@@ -106,7 +117,7 @@ function genEditLoItemForm($itemid) {
     if ($item != NULL) {
         $name = $item['name'];
         $desc = $item['description'];
-        $html .= "<form name='edit_lo_item' method='POST', action=\"popup.php?action=edit_lo_item&saved=true\">";
+        $html .= "<form name='edit_lo_item' method='POST' action=\"popup.php?action=edit_lo_item&saved=true\">";
         $html .= "<input type=\"hidden\" name=\"itemid\" value=\"$itemid\" />";
         $html .= "<label>Item name: </label>";
         $html .= "<input type=text name='txtItemName' value=\"$name\" /></br />";
@@ -114,6 +125,14 @@ function genEditLoItemForm($itemid) {
         $html .= "<textarea name='txtDesc' cols=25>$desc</textarea><br />";
         $html .= "<input type=submit value='Save' />";
         $html .= "<input type=button value='Close' onclick=\"window.opener.location.reload(); window.close(); return false;\" />";
+        $html .= "</form>";
+        
+        //delete button
+        $html .= "<form name='delete_lo_item' method='GET' action=\"popup.php\">";
+        $html .= "<input name='action' type='hidden' value='delete_lo_item'/>";
+        $html .= "<input name='id' type='hidden' value='".hashLOID($itemid)."'/>";
+        $html .= "<input type=submit value='Delete' 
+        	onclick=\" if (confirm('Sure?')) {return true;} else {return false;} \" />";
         $html .= "</form>";
     }
     else {
@@ -156,5 +175,8 @@ function genLOItemSelectOption($tree, $parent_index=" ") {
     
     return $html;
 }
+
+//display the output
+echo $popupoutput;
 
 ?>
