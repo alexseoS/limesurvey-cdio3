@@ -243,7 +243,7 @@ function processExcelFile($filename, $lo_name) {
 }
 
 function getlearningoutcomeslist() {
-    $query = "select * from ".db_table_name('cdio3_learningoutcomes')."where parent_id=-1";
+    $query = "select * from ".db_table_name('cdio3_learningoutcomes')."where parent_id=-1 and status=1";
     
     $result = db_execute_assoc($query) or safe_die($connect->ErrorMsg());
 
