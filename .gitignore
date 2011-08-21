@@ -2,3 +2,7 @@
 /tmp/*.*
 /upload/*.*
 /logs
+/.buildpath
+/.project
+/.settings/
+
