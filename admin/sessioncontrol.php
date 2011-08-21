@@ -199,7 +199,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
 returnglobal('action') != 'login' &&
 returnglobal('action') != 'forgotpass' &&
 returnglobal('action') != 'ajaxquestionattributes' &&
-returnglobal('action') != '')
+returnglobal('action') != '' &&
+returnglobal('action') != 'edit_lo_item' &&
+returnglobal('action') != 'addlo' &&
+returnglobal('action') != 'new_lo_item' &&
+returnglobal('action') != 'gen_raw_survey')
 {
     if (returnglobal('checksessionbypost') != $_SESSION['checksessionpost'])
     {

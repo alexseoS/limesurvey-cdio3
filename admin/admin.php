@@ -78,8 +78,7 @@ if(isset($_SESSION['loginID']))
 {
     //VARIOUS DATABASE OPTIONS/ACTIONS PERFORMED HERE
     
-    // CDIO3: add action of learning outcomes to include database.php in those files
-    if (in_array($action, array('updateemailtemplates','delsurvey','delgroup','delquestion','insertsurvey','updatesubquestions','copynewquestion','insertquestiongroup','insertCSV','insertquestion','updatesurveysettings','updatesurveysettingsandeditlocalesettings','updatesurveylocalesettings','updategroup','deactivate','savepersonalsettings','updatequestion','updateansweroptions','renumberquestions','updatedefaultvalues','addlo','importlo','editlo','gen_raw_survey','listrs','new_survey_question')))
+    if (in_array($action, array('updateemailtemplates','delsurvey','delgroup','delquestion','insertsurvey','updatesubquestions','copynewquestion','insertquestiongroup','insertCSV','insertquestion','updatesurveysettings','updatesurveysettingsandeditlocalesettings','updatesurveylocalesettings','updategroup','deactivate','savepersonalsettings','updatequestion','updateansweroptions','renumberquestions','updatedefaultvalues')))
     {
         include('database.php');
     }

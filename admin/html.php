@@ -2113,8 +2113,7 @@ function showadminmenu()
     $adminmenu .= "<img src='{$imageurl}/seperator.gif' alt=''  border='0' hspace='0' />\n"
     ."<a href=\"#\" onclick=\"window.open('$scriptname?action=listlo', '_top')\" title=\"".$clang->gTview("Learning Outcomes Management")."\" >\n"
     ."<img src='{$imageurl}/reorder_disabled.png' name='Learning Outcomes Management' alt='".$clang->gT("Learning Outcomes Management")."' />"
-    ."</a>\n"
-    ."<img src='{$imageurl}/seperator.gif' alt=''  border='0' hspace='0' />\n";
+    ."</a>\n";
     
 // CDIO3: list rawsurvey
     $adminmenu .= "<a href=\"#\" onclick=\"window.open('$scriptname?action=listrs', '_top')\" title=\"".$clang->gTview("List Raw Surveys")."\" >\n"
