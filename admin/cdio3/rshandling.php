@@ -129,7 +129,7 @@ elseif ($action == 'edit_rs') {
 
 function show_rs_menu() {
     global $imageurl, $scriptname;
-    $rsmenu .="<div class='menubar surveybar'>\n"
+    $rsmenu ="<div class='menubar surveybar'>\n"
     . "<div class='menubar-title ui-widget-header'>\n"
     . "<strong>Raw Survey Management</strong>"
     . "</div>"

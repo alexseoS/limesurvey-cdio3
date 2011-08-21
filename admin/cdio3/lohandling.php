@@ -1,7 +1,7 @@
 <?php 
 
 include_once('login_check.php');
-require_once("classes/PHPEXcel/PHPExcel.php");
+require_once('classes/PHPEXcel/PHPExcel.php');
 require_once('cdio3_common_functions.php');
 
 $lo_output = show_lo_menu();
@@ -319,3 +319,5 @@ function genAddLOForm() {
 }
 
 $lo_output .= '<br/>';
+
+?>
