@@ -1,4 +1,4 @@
-<?
+<?php
 function testExporting() {
     $exportHtml .= "<select id='question_type' style='margin-bottom:5px' name='type' "
     . ">\n"
