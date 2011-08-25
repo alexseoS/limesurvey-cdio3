@@ -40,6 +40,7 @@ else if ($action == 'editlo') {
         $loUpdate['name'] = $_POST['txtname'];
         $loUpdate['description'] = $_POST['txtdesc'];
         $loUpdate['id'] = $_POST['txtid'];
+		$loUpdate['status'] = 1;
         if (!UpdateLO($loUpdate)) {
             $lo_output = 'error occurred';
         }
